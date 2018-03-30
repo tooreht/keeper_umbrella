@@ -17,8 +17,15 @@ use Mix.Config
 # docs for separating out critical OTP applications such as those
 # involved with firmware updates.
 config :shoehorn,
-  init: [:nerves_runtime, :nerves_network],
+  init: [:nerves_runtime, :nerves_init_gadget],
   app: Mix.Project.config()[:app]
+
+# Add the RingLogger backend. This removes the
+# default :console backend.
+config :logger, backends: [RingLogger]
+
+# Set the number of messages to hold in the circular buffer
+config :logger, RingLogger, buffer_size: 100
 
 # For WiFi, set regulatory domain to avoid restrictive default
 config :nerves_network,
@@ -32,6 +39,19 @@ config :nerves_network, :default,
   ],
   eth0: [
     ipv4_address_method: :dhcp
+  ]
+
+config :nerves_init_gadget,
+  ifname: "eth0",
+  address_method: :dhcp,
+  mdns_domain: "keeper.local",
+  node_name: "keeper",
+  node_host: :mdns_domain
+
+config :nerves_firmware_ssh,
+  authorized_keys: [
+    File.read!(Path.join(System.user_home!, ".ssh/id_rsa.pub"))
+    # File.read!(Path.join(System.user_home!, ".ssh/id_ed25519.pub"))
   ]
 
 config :keeper_web, KeeperWeb.Endpoint,
