@@ -9,9 +9,9 @@ use Mix.Config
 # to add files to the root filesystem or modify the firmware
 # archive.
 
-# config :nerves, :firmware,
-#   rootfs_overlay: "rootfs_overlay",
-#   fwup_conf: "config/fwup.conf"
+config :nerves, :firmware,
+  rootfs_overlay: "rootfs_overlay"
+  # fwup_conf: "config/fwup.conf"
 
 # Use shoehorn to start the main application. See the shoehorn
 # docs for separating out critical OTP applications such as those
