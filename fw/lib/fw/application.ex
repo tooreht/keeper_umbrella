@@ -84,7 +84,7 @@ defmodule Fw.Application do
   # Setup database
 
   def setup_db(app) do
-    for repo <- Application.get_env(app, :ecto_repos)do
+    for repo <- Application.get_env(app, :ecto_repos) do
       setup_repo(app, repo)
       migrate_repo(app, repo)
     end

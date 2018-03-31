@@ -60,15 +60,11 @@ config :keeper_web, KeeperWeb.Endpoint,
   secret_key_base: "AxV43EpSpCX4vgDwbb3Wa4dh5hUDxN+xC7jqqcZcAMx6LpgIc5rnktXi5SPSlmxT",
   root: Path.dirname(__DIR__),
   server: true,
-  render_errors: [view: UiWeb.ErrorView, accepts: ~w(html json)],
+  render_errors: [view: KeeperWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Nerves.PubSub, adapter: Phoenix.PubSub.PG2],
   code_reloader: false
 
 config :logger, level: :debug
-
-config :keeper, Keeper.Repo,
-  adapter: Sqlite.Ecto2,
-  database: "#{Mix.env}.sqlite3"
 
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
